@@ -14,8 +14,8 @@
 		2A212EE72E14F16D003BD9AB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A212EE12E14F16D003BD9AB /* ContentView.swift */; };
 		2A212EE82E14F16D003BD9AB /* QRScanApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A212EE22E14F16D003BD9AB /* QRScanApp.swift */; };
 		2A212EEB2E14F21F003BD9AB /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2A212EEA2E14F21F003BD9AB /* FirebaseAnalytics */; };
-		2A212EED2E14F38C003BD9AB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2A212EEC2E14F38C003BD9AB /* GoogleService-Info.plist */; };
 		2A212EEF2E14F3C4003BD9AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A212EEE2E14F3C4003BD9AB /* AppDelegate.swift */; };
+		2A212EF22E1535C8003BD9AB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2A212EF12E1535C8003BD9AB /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,9 +24,9 @@
 		2A212EE02E14F16D003BD9AB /* BannerAdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerAdView.swift; sourceTree = "<group>"; };
 		2A212EE12E14F16D003BD9AB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		2A212EE22E14F16D003BD9AB /* QRScanApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScanApp.swift; sourceTree = "<group>"; };
-		2A212EEC2E14F38C003BD9AB /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2A212EEE2E14F3C4003BD9AB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2A212EF02E14F4CD003BD9AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		2A212EF12E1535C8003BD9AB /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2A25B4FC2E137FA50060E9A1 /* QRScan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QRScan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -46,8 +46,8 @@
 		2A212EE32E14F16D003BD9AB /* QRScan */ = {
 			isa = PBXGroup;
 			children = (
+				2A212EF12E1535C8003BD9AB /* GoogleService-Info.plist */,
 				2A212EF02E14F4CD003BD9AB /* Info.plist */,
-				2A212EEC2E14F38C003BD9AB /* GoogleService-Info.plist */,
 				2A212EDF2E14F16D003BD9AB /* Assets.xcassets */,
 				2A212EEE2E14F3C4003BD9AB /* AppDelegate.swift */,
 				2A212EDE2E14F16D003BD9AB /* AdManager.swift */,
@@ -141,8 +141,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A212EF22E1535C8003BD9AB /* GoogleService-Info.plist in Resources */,
 				2A212EE42E14F16D003BD9AB /* Assets.xcassets in Resources */,
-				2A212EED2E14F38C003BD9AB /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,22 +296,29 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = QRScan/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = QRScannerPro;
 				INFOPLIST_KEY_NSCameraUsageDescription = "QRコードをスキャンするためにカメラを使用します";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "このアプリでは、Firebase Analytics や Crashlytics を用いて利用状況や不具合情報を分析し、サービス改善のためのトラッキング許可をお願いしています";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = QRScanner;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = QRScannerPro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -326,22 +333,29 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = QRScan/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = QRScannerPro;
 				INFOPLIST_KEY_NSCameraUsageDescription = "QRコードをスキャンするためにカメラを使用します";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "このアプリでは、Firebase Analytics や Crashlytics を用いて利用状況や不具合情報を分析し、サービス改善のためのトラッキング許可をお願いしています";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = QRScanner;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = QRScannerPro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

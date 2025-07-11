@@ -19,7 +19,7 @@ final class AdManager: NSObject, FullScreenContentDelegate, ObservableObject {
     #if DEBUG
     return "ca-app-pub-3940256099942544/4411468910"// テスト広告ID
     #else
-    return "ca-app-pub-1909140510546146/3037133355"
+    return "ca-app-pub-1909140510546146/7732024438"
     #endif
     }
 

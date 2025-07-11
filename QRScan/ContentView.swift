@@ -4,6 +4,7 @@ import Vision
 import VisionKit
 import CoreImage
 import CoreImage.CIFilterBuiltins
+import AppTrackingTransparency
 
 // MARK: - Models
 struct QRScanResult: Identifiable, Codable {
@@ -372,12 +373,44 @@ class QRScannerViewModel: ObservableObject {
     @Published var showingResult = false
     @Published var generatedQRCode: UIImage?
     @Published var qrGeneratorText: String = ""
+    @Published var isMenuPresented = false
+    @Published var ads = AdManager.shared
     
     private let userDefaults = UserDefaults.standard
     private let resultsKey = "QRScanResults"
     
     init() {
         loadResults()
+        ads.loadInterstitial()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.requestTrackingPermissionIfNeeded()
+        }
+    }
+    
+    func requestTrackingPermissionIfNeeded() {
+        ATTrackingManager.requestTrackingAuthorization { status in
+            switch status {
+            case .authorized:
+                print("Tracking authorized")
+
+            case .denied, .restricted:
+                print("Tracking denied")
+
+            case .notDetermined:
+                print("Not determined – まだダイアログが出ていません")
+
+            @unknown default:
+                break
+            }
+        }
+    }
+    
+    func topViewController() -> UIViewController? {
+        UIApplication.shared.connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .flatMap { $0.windows }
+            .first { $0.isKeyWindow }?
+            .rootViewController
     }
     
     func addResult(_ content: String) {
@@ -715,6 +748,18 @@ struct ContentView: View {
         }
         .sheet(isPresented: $viewModel.showingResult) {
             ResultModalView(viewModel: viewModel)
+                .onAppear {
+                    viewModel.ads.loadInterstitial()
+                    
+                    
+                    if viewModel.scannedResults.count % 3 == 0 {
+                        if let root = viewModel.topViewController() {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                                viewModel.ads.showInterstitial(from: root)
+                            }
+                        }
+                    }
+                }
         }
     }
 }
@@ -816,6 +861,20 @@ struct HomeView: View {
                 
                 Spacer()
             }
+        }
+        .overlay(alignment: .topLeading) {
+            Button(action: {
+                viewModel.isMenuPresented = true
+            }) {
+                Image(systemName: "line.3.horizontal")
+                    .resizable()
+                    .foregroundColor(.gray)
+                    .frame(width: 14, height: 14)
+            }
+            .sheet(isPresented: $viewModel.isMenuPresented) {
+                MenuSheetView()
+            }
+            .padding(20)
         }
     }
 }
@@ -1187,19 +1246,16 @@ struct ScannerModalView: View {
                 RoundedRectangle(cornerRadius: 20)
                     .stroke(Color.cyan, lineWidth: 3)
                     .frame(width: 250, height: 250)
-                    .overlay(
-                        VStack {
-                            Spacer()
-                            Text("QRコードをここに合わせてください")
-                                .foregroundColor(.white)
-                                .font(.headline)
-                                .padding()
-                                .background(.ultraThinMaterial)
-                                .cornerRadius(10)
-                        }
-                    )
                 
                 Spacer()
+                
+                Text("QRコードをここに合わせてください")
+                    .foregroundColor(.white)
+                    .font(.headline)
+                    .padding()
+                    .background(.ultraThinMaterial)
+                    .cornerRadius(10)
+                    .padding(.bottom, 5)
             }
         }
         .onAppear {
@@ -1559,6 +1615,9 @@ struct QRGeneratorView: View {
                 }
             }
         }
+        .onTapGesture {
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        }
     }
     
     private func formatText(_ text: String, for type: QRGeneratorType) -> String {
@@ -1634,6 +1693,45 @@ struct ShareSheet: UIViewControllerRepresentable {
     }
     
     func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
+}
+
+struct MenuSheetView: View {
+   @State var isAdLoaded = true
+   var body: some View {
+       NavigationView {
+           VStack {
+               List {
+                   Button {
+                       openURL("https://square-hockey-7b2.notion.site/22dc71ad3e3b80b8af0ade892d1be135")
+                   } label: {
+                       Label("プライバシーポリシー", systemImage: "lock.shield")
+                           .foregroundColor(.white)
+                   }
+                   
+                   Button {
+                       openURL("https://square-hockey-7b2.notion.site/22dc71ad3e3b80c0bbe8cbcd108bb028")
+                   } label: {
+                       Label("利用規約", systemImage: "doc.text")
+                           .foregroundColor(.white)
+                   }
+                   
+                   Button {
+                       openURL("https://docs.google.com/forms/d/e/1FAIpQLSczZ5hqMJHCfd013PbwsHuH2BoknpqYFvLNkrv5fcuQ7E5E0w/viewform?usp=dialog")
+                   } label: {
+                       Label("問い合わせ", systemImage: "envelope")
+                           .foregroundColor(.white)
+                   }
+               }
+               .navigationTitle("メニュー")
+               .navigationBarTitleDisplayMode(.inline)
+           }
+       }
+   }
+   
+   private func openURL(_ urlString: String) {
+       guard let url = URL(string: urlString) else { return }
+       UIApplication.shared.open(url)
+   }
 }
 
 // MARK: - App Entry Point

@@ -9,7 +9,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>QRScanner</string>
+	<string>QRScannerPro</string>
 	<key>PROJECT_ID</key>
 	<string>qrscanner-f76f4</string>
 	<key>STORAGE_BUCKET</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:96758054898:ios:00e19d70be9f103f04756b</string>
+	<string>1:96758054898:ios:516a4d3d8491a52004756b</string>
 </dict>
 </plist>
