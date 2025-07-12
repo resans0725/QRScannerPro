@@ -1737,6 +1737,8 @@ struct MenuSheetView: View {
 // MARK: - App Entry Point
 @main
 struct QRScannerApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
